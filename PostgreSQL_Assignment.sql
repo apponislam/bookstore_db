@@ -54,3 +54,31 @@ INSERT INTO orders (customer_id, book_id, quantity, order_date) VALUES
 SELECT * FROM books;
 SELECT * FROM customers;
 SELECT * FROM orders;
+
+SELECT title FROM books
+WHERE stock = 0;
+
+SELECT * FROM books ORDER BY price DESC
+LIMIT 1;
+
+
+
+SELECT customers.name, COUNT(orders.id) AS total_orders FROM customers
+LEFT JOIN orders ON customers.id = orders.customer_id
+GROUP BY customers.id, customers.name  
+ORDER BY total_orders DESC;         
+
+
+
+
+SELECT SUM(books.price * orders.quantity) AS total_revenue FROM orders
+JOIN books ON orders.book_id = books.id;
+
+
+
+SELECT customers.name, COUNT(orders.id) AS orders_count
+FROM customers
+JOIN orders ON customers.id = orders.customer_id
+GROUP BY customers.id, customers.name
+HAVING COUNT(orders.id) > 1;
+
